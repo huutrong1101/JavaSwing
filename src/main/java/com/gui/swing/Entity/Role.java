@@ -1,10 +1,13 @@
 package com.gui.swing.Entity;
 
+
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.List;
 
 @Entity
+@Data
 public class Role {
 
     @Id

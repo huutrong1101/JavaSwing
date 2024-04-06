@@ -14,7 +14,7 @@ public class Room {
 
     private boolean roomIsActive;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "floor_id", nullable = false)
     private Floor floor;
 }

@@ -1,14 +1,14 @@
 package com.gui.swing.Entity;
 
+
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.Date;
 
-@Table(
-        uniqueConstraints = @UniqueConstraint(columnNames = {"room_id", "user_id"})
-)
 @Entity
-public class RoomUser {
+@Data
+public class RoomGuest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,7 @@ public class RoomUser {
     private Room room;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "guest_id")
+    private Guest user;
 
 }

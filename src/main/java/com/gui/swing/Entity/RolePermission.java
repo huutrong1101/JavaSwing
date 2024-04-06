@@ -1,5 +1,6 @@
 package com.gui.swing.Entity;
 
+
 import jakarta.persistence.*;
 
 @Table(

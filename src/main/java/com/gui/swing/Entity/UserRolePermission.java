@@ -1,7 +1,9 @@
 package com.gui.swing.Entity;
 
+
 import com.gui.swing.Entity.Key.UserRolePermissionKey;
 import jakarta.persistence.*;
+
 
 @Entity
 public class UserRolePermission {
@@ -10,7 +12,7 @@ public class UserRolePermission {
     private UserRolePermissionKey userRolePermissionKey;
     private String userRolePermissionIsActive;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @MapsId("userId")
     @JoinColumn(name = "user_id")
     private User user;
