@@ -4,6 +4,8 @@ package com.gui.swing.Entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -20,5 +22,5 @@ public class OTPCode {
 
     private int value;
 
-    private Date createdTime;
+    private LocalDateTime createdTime;
 }

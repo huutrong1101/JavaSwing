@@ -44,7 +44,10 @@ public class Application {
 //		test.testLogin();
 //		test.testSendEmail();
 //		test.testForgetPassword();
-		test.testChangePassword();
+//		test.testChangePassword();
+//		test.testGetInfoRoom();
+//		test.testIsRoomRent();
+		test.testGetAllFloor();
 		return (args) ->{
 			System.out.println(1);
 		};

@@ -13,6 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -82,7 +84,7 @@ public class AuthenticationService {
         OTPCode otpCode = new OTPCode();
         User user = userRepository.findByUserName(email);
         System.out.println(user.getUserId());
-        otpCode.setCreatedTime(new Date());
+        otpCode.setCreatedTime(LocalDateTime.now());
         otpCode.setValue(resultSendEmail);
         otpCode.setUser(user);
         otpCode.setId(user.getUserId());
