@@ -1,7 +1,9 @@
 package com.gui.swing.Entity;
 
+
 import com.gui.swing.Entity.Key.RoomFunctionKey;
 import jakarta.persistence.*;
+
 
 @Entity
 public class RoomFunction {

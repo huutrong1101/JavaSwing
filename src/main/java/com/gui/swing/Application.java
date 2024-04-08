@@ -11,19 +11,34 @@ import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import com.gui.swing.DTO.Request.SendEmailRequest;
+import com.gui.swing.Service.EmailService;
+import com.gui.swing.Service.Test;
+import jakarta.mail.MessagingException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import javax.swing.*;
+import java.util.HashMap;
+import java.util.Map;
 
 
-/**
- *
- * @author Raven
- */
-public class Application extends javax.swing.JFrame {
+@SpringBootApplication(scanBasePackages = { "com.gui.swing.Config", "com.gui.swing.Repository", "com.gui.swing.Service"})
+public class Application extends javax.swing.JFrame{
 
-    private static Application app;
-    private final MainForm mainForm;
-    private final LoginForm loginForm;
+  private static Application app;
+  private final MainForm mainForm;
+  private final LoginForm loginForm;
+  
+	@Autowired
+	private Test test;
 
-    public Application() {
+	@Autowired
+	private EmailService emailService;
+
+  public Application() {
         initComponents();
         setSize(new Dimension(1366, 768));
         setLocationRelativeTo(null);
@@ -94,4 +109,18 @@ public class Application extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
+	@Bean
+	public CommandLineRunner demo() throws MessagingException {
+//		test.testLogin();
+//		test.testSendEmail();
+//		test.testForgetPassword();
+//		test.testChangePassword();
+//		test.testGetInfoRoom();
+//		test.testIsRoomRent();
+		test.testGetAllFloor();
+		return (args) ->{
+			System.out.println(1);
+		};
+	}
+
 }

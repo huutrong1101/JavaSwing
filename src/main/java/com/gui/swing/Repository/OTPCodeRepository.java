@@ -1,9 +1,10 @@
 package com.gui.swing.Repository;
 
-import com.gui.swing.Entity.Function;
+import com.gui.swing.Entity.OTPCode;
+import com.gui.swing.Entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface FunctionRepository extends JpaRepository<Function, Integer> {
+public interface OTPCodeRepository extends JpaRepository<OTPCode, Long> {
 }
