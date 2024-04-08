@@ -85,8 +85,6 @@
     </dependency>
 
 
-	</dependencies>
-  
         <dependency>
             <groupId>com.formdev</groupId>
             <artifactId>flatlaf</artifactId>
@@ -107,7 +105,10 @@
             <artifactId>AbsoluteLayout</artifactId>
             <version>SNAPSHOT</version>
         </dependency>
-    </dependencies>
+
+
+	</dependencies>
+
 
     <build>
         <plugins>

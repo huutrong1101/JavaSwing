@@ -1,29 +1,22 @@
 package com.gui.swing;
 
+
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.extras.FlatAnimatedLafChange;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import com.gui.swing.Controller.application.form.LoginForm;
 import com.gui.swing.Controller.application.form.MainForm;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import com.gui.swing.DTO.Request.SendEmailRequest;
 import com.gui.swing.Service.EmailService;
 import com.gui.swing.Service.Test;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import javax.swing.*;
-import java.util.HashMap;
-import java.util.Map;
 
+import javax.swing.*;
+import java.awt.*;
 
 @SpringBootApplication(scanBasePackages = { "com.gui.swing.Config", "com.gui.swing.Repository", "com.gui.swing.Service"})
 public class Application extends javax.swing.JFrame{
@@ -117,7 +110,7 @@ public class Application extends javax.swing.JFrame{
 //		test.testChangePassword();
 //		test.testGetInfoRoom();
 //		test.testIsRoomRent();
-		test.testGetAllFloor();
+		//test.testGetAllFloor();
 		return (args) ->{
 			System.out.println(1);
 		};
