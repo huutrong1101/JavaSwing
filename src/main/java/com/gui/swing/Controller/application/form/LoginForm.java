@@ -3,17 +3,27 @@ package com.gui.swing.Controller.application.form;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.util.UIScale;
 import com.gui.swing.Application;
+import com.gui.swing.Controller.ForgetPassword;
+import com.gui.swing.DTO.Response.GeneralResponse;
+import com.gui.swing.Service.AuthenticationService;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.LayoutManager;
+import javax.swing.JOptionPane;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 /**
  *
  * @author Raven
  */
+@Controller
 public class LoginForm extends javax.swing.JPanel {
+
+    @Autowired
+    private AuthenticationService authService;
 
     public LoginForm() {
         initComponents();
@@ -22,9 +32,15 @@ public class LoginForm extends javax.swing.JPanel {
 
     private void init() {
         setLayout(new LoginFormLayout());
+
         login.setLayout(new LoginLayout());
+
         lbTitle.putClientProperty(FlatClientProperties.STYLE, ""
                 + "font:$h1.font");
+
+        lbForgetPassword.putClientProperty(FlatClientProperties.STYLE, ""
+                + "font: 12pt");
+
         login.putClientProperty(FlatClientProperties.STYLE, ""
                 + "background:$Login.background;"
                 + "arc:20;"
@@ -33,11 +49,14 @@ public class LoginForm extends javax.swing.JPanel {
         txtPass.putClientProperty(FlatClientProperties.STYLE, ""
                 + "showRevealButton:true;"
                 + "showCapsLock:true");
+
         cmdLogin.putClientProperty(FlatClientProperties.STYLE, ""
                 + "borderWidth:0;"
                 + "focusWidth:0");
-        txtUser.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "User Name");
-        txtPass.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Password");
+
+        txtUser.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Enter your email");
+
+        txtPass.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Enter your password");
     }
 
     @SuppressWarnings("unchecked")
@@ -51,6 +70,7 @@ public class LoginForm extends javax.swing.JPanel {
         txtUser = new javax.swing.JTextField();
         lbPass = new javax.swing.JLabel();
         txtPass = new javax.swing.JPasswordField();
+        lbForgetPassword = new javax.swing.JLabel();
 
         cmdLogin.setText("Login");
         cmdLogin.setBorderPainted(false);
@@ -63,9 +83,17 @@ public class LoginForm extends javax.swing.JPanel {
         lbTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbTitle.setText("Login");
 
-        lbUser.setText("User Name");
+        lbUser.setText("Email");
 
         lbPass.setText("Password");
+
+        lbForgetPassword.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbForgetPassword.setText("Forget Password ?");
+        lbForgetPassword.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbForgetPasswordMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout loginLayout = new javax.swing.GroupLayout(login);
         login.setLayout(loginLayout);
@@ -86,16 +114,14 @@ public class LoginForm extends javax.swing.JPanel {
                         .addContainerGap()
                         .addGroup(loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lbForgetPassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(loginLayout.createSequentialGroup()
                                 .addGroup(loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lbPass)
-                                    .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cmdLogin))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
-            .addGroup(loginLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(cmdLogin)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         loginLayout.setVerticalGroup(
             loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,7 +136,9 @@ public class LoginForm extends javax.swing.JPanel {
                 .addComponent(lbPass)
                 .addGap(5, 5, 5)
                 .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addGap(16, 16, 16)
+                .addComponent(lbForgetPassword)
+                .addGap(18, 18, 18)
                 .addComponent(cmdLogin)
                 .addContainerGap())
         );
@@ -134,8 +162,14 @@ public class LoginForm extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmdLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdLoginActionPerformed
-       Application.login();
+
+        Application.login();
     }//GEN-LAST:event_cmdLoginActionPerformed
+
+    private void lbForgetPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbForgetPasswordMouseClicked
+        ForgetPassword forgetPasswordForm = new ForgetPassword();
+        forgetPasswordForm.setVisible(true);
+    }//GEN-LAST:event_lbForgetPasswordMouseClicked
 
     private class LoginFormLayout implements LayoutManager {
 
@@ -198,6 +232,12 @@ public class LoginForm extends javax.swing.JPanel {
 
                 height += lbTitle.getPreferredSize().height;
                 height += UIScale.scale(titleGap);
+
+                height += lbForgetPassword.getPreferredSize().height;
+                height += UIScale.scale(labelGap);
+                height += lbForgetPassword.getPreferredSize().height;
+                height += UIScale.scale(textGap);
+
                 height += lbUser.getPreferredSize().height;
                 height += UIScale.scale(labelGap);
                 height += txtUser.getPreferredSize().height;
@@ -227,19 +267,39 @@ public class LoginForm extends javax.swing.JPanel {
                 int y = insets.top;
                 int width = parent.getWidth() - (insets.left + insets.right);
 
+                // Position the "Login" title label
                 lbTitle.setBounds(x, y, width, lbTitle.getPreferredSize().height);
                 y += lbTitle.getPreferredSize().height + UIScale.scale(titleGap);
 
+                // Position the "Email" label
                 lbUser.setBounds(x, y, width, lbUser.getPreferredSize().height);
                 y += lbUser.getPreferredSize().height + UIScale.scale(labelGap);
+
+                // Position the email input field
                 txtUser.setBounds(x, y, width, txtUser.getPreferredSize().height);
                 y += txtUser.getPreferredSize().height + UIScale.scale(textGap);
 
+                // Position the "Password" label
                 lbPass.setBounds(x, y, width, lbPass.getPreferredSize().height);
                 y += lbPass.getPreferredSize().height + UIScale.scale(labelGap);
-                txtPass.setBounds(x, y, width, txtPass.getPreferredSize().height);
-                y += txtPass.getPreferredSize().height + UIScale.scale(buttonGap);
 
+                // Position the password input field
+                txtPass.setBounds(x, y, width, txtPass.getPreferredSize().height);
+                y += txtPass.getPreferredSize().height;
+
+                // Calculate the vertical middle point between the bottom of the password input and the top of the login button
+                int buttonY = y + UIScale.scale(buttonGap); // Vertical position for the login button
+                int middleY = y + (buttonY - y - lbForgetPassword.getPreferredSize().height) / 2; // Middle point for the "Forget Password?" label
+
+                // Position the "Forget Password?" label to the right, vertically centered between the password input and the login button
+                int forgetPasswordWidth = lbForgetPassword.getPreferredSize().width;
+                int forgetPasswordX = x + width - forgetPasswordWidth; // Horizontal position for the "Forget Password?" label
+                lbForgetPassword.setBounds(forgetPasswordX, middleY, forgetPasswordWidth, lbForgetPassword.getPreferredSize().height);
+
+                // Update y to the position where the login button should be
+                y = buttonY;
+
+                // Position the login button
                 cmdLogin.setBounds(x, y, width, cmdLogin.getPreferredSize().height);
             }
         }
@@ -247,6 +307,7 @@ public class LoginForm extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cmdLogin;
+    private javax.swing.JLabel lbForgetPassword;
     private javax.swing.JLabel lbPass;
     private javax.swing.JLabel lbTitle;
     private javax.swing.JLabel lbUser;

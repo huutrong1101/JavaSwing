@@ -1,12 +1,12 @@
 package com.gui.swing;
 
-
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.extras.FlatAnimatedLafChange;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import com.gui.swing.Controller.application.form.LoginForm;
 import com.gui.swing.Controller.application.form.MainForm;
+import com.gui.swing.Service.AuthenticationService;
 import com.gui.swing.Service.EmailService;
 import com.gui.swing.Service.Test;
 import jakarta.mail.MessagingException;
@@ -17,21 +17,22 @@ import org.springframework.context.annotation.Bean;
 
 import javax.swing.*;
 import java.awt.*;
+import org.springframework.boot.SpringApplication;
 
-@SpringBootApplication(scanBasePackages = { "com.gui.swing.Config", "com.gui.swing.Repository", "com.gui.swing.Service"})
-public class Application extends javax.swing.JFrame{
+@SpringBootApplication(scanBasePackages = {"com.gui.swing.Config", "com.gui.swing.Repository", "com.gui.swing.Service"})
+public class Application extends javax.swing.JFrame {
 
-  private static Application app;
-  private final MainForm mainForm;
-  private final LoginForm loginForm;
-  
-	@Autowired
-	private Test test;
+    private static Application app;
+    private final MainForm mainForm;
+    private final LoginForm loginForm;
 
-	@Autowired
-	private EmailService emailService;
+    @Autowired
+    private Test test;
 
-  public Application() {
+    @Autowired
+    private EmailService emailService;
+
+    public Application() {
         initComponents();
         setSize(new Dimension(1366, 768));
         setLocationRelativeTo(null);
@@ -77,18 +78,33 @@ public class Application extends javax.swing.JFrame{
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 719, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 719, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 521, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 521, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     public static void main(String args[]) {
+        SpringApplication.run(Application.class, args);
+
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // End of variables declaration//GEN-END:variables
+    @Bean
+    public CommandLineRunner demo() throws MessagingException {
+//		test.testLogin();
+//		test.testSendEmail();
+//		test.testForgetPassword();
+//		test.testChangePassword();
+//		test.testGetInfoRoom();
+//		test.testIsRoomRent();
+        //test.testGetAllFloor();
         FlatRobotoFont.install();
         FlatLaf.registerCustomDefaultsSource("com.gui.swing.Controller.theme");
         UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 13));
@@ -98,22 +114,9 @@ public class Application extends javax.swing.JFrame{
             //  app.applyComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
             app.setVisible(true);
         });
+        return (args) -> {
+            System.out.println(1);
+        };
     }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    // End of variables declaration//GEN-END:variables
-	@Bean
-	public CommandLineRunner demo() throws MessagingException {
-//		test.testLogin();
-//		test.testSendEmail();
-//		test.testForgetPassword();
-//		test.testChangePassword();
-//		test.testGetInfoRoom();
-//		test.testIsRoomRent();
-		//test.testGetAllFloor();
-		return (args) ->{
-			System.out.println(1);
-		};
-	}
 
 }

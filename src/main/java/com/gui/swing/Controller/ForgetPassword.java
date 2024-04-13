@@ -4,6 +4,7 @@
  */
 package com.gui.swing.Controller;
 
+import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -12,14 +13,15 @@ import javax.swing.Timer;
 import javax.swing.JOptionPane;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.awt.event.WindowEvent;
 
 /**
  *
  * @author huutr
  */
 public class ForgetPassword extends javax.swing.JFrame {
-    
-     class EnterKeyListener implements KeyListener {
+
+    class EnterKeyListener implements KeyListener {
 
         @Override
         public void keyPressed(KeyEvent e) {
@@ -46,8 +48,10 @@ public class ForgetPassword extends javax.swing.JFrame {
     public ForgetPassword() {
         initComponents();
         setLocationRelativeTo(null);
-        
+
         inputEmail.addKeyListener(new ForgetPassword.EnterKeyListener());
+
+        inputEmail.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Enter your email");
     }
 
     /**
@@ -80,13 +84,23 @@ public class ForgetPassword extends javax.swing.JFrame {
         // Thêm logic của bạn ở đây để xử lý việc gửi email
     }
 
+    private void openOTPConfirmForm() {
+        // Giả định bạn đã có một instance của form OTPConfirm
+        // Giả sử là otpConfirmForm là biến cho form "OTPConfirm"
+        OTPConfirm otpConfirmForm = new OTPConfirm(); // Tạo mới form OTPConfirm hoặc sử dụng form đã có
+        otpConfirmForm.setVisible(true); // Hiển thị form OTPConfirm
+    }
+
     private void startCountdown() {
+        countDownSeconds = 3; // Thiết lập thời gian đếm ngược là 3 giây
         timer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 countDownSeconds--;
                 if (countDownSeconds <= 0) {
                     stopCountdown();
+                    ForgetPassword.this.setVisible(false); // Ẩn form ForgetPassword
+                    openOTPConfirmForm(); // Hiển thị form OTPConfirm
                 }
             }
         });
@@ -108,12 +122,21 @@ public class ForgetPassword extends javax.swing.JFrame {
         return matcher.matches();
     }
 
+    @Override
+    protected void processWindowEvent(WindowEvent e) {
+        if (e.getID() == WindowEvent.WINDOW_CLOSING) {
+            // Xử lý sự kiện khi cửa sổ đang đóng
+            this.dispose(); // Đóng form ForgetPassword
+        } else {
+            super.processWindowEvent(e);
+        }
+    }
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
         inputEmail = new javax.swing.JTextField();
         btnSend = new javax.swing.JButton();
 
@@ -124,8 +147,6 @@ public class ForgetPassword extends javax.swing.JFrame {
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jPanel7.setPreferredSize(new java.awt.Dimension(250, 50));
-
-        jLabel3.setText("Email");
 
         inputEmail.setToolTipText("");
         inputEmail.setPreferredSize(new java.awt.Dimension(64, 34));
@@ -140,20 +161,16 @@ public class ForgetPassword extends javax.swing.JFrame {
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(inputEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
+                .addGap(14, 14, 14)
+                .addComponent(inputEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inputEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(inputEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         btnSend.setBackground(new java.awt.Color(51, 204, 0));
@@ -246,7 +263,6 @@ public class ForgetPassword extends javax.swing.JFrame {
     private javax.swing.JButton btnSend;
     private javax.swing.JTextField inputEmail;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel7;
     // End of variables declaration//GEN-END:variables
 }
